@@ -1,0 +1,40 @@
+
+<suite name="LearningGroups">
+
+<test name="smokeTesting">
+<groups>
+   <run>
+   <include name="smoke"></include> 
+   </run>
+</groups>
+<classes>
+<class name="TestScenario1.Sample1"></class>
+<class name="TestScenario1.Sample2"></class>
+</classes>
+</test>
+
+<test name="RegressionTesting">
+<groups>
+   <run>
+   <include name="regression"></include> 
+   </run>
+</groups>
+<classes>
+<class name="TestScenario1.Sample1"></class>
+<class name="TestScenario1.Sample2"></class>
+</classes>
+</test>
+
+<test name="Alltesting">
+<groups>
+   <run>
+   <exclude name="smoke"></exclude>
+   </run>
+</groups>
+<classes>
+<class name="TestScenario1.Sample1"></class>
+<class name="TestScenario1.Sample2"></class>
+</classes>
+</test>
+
+</suite>
