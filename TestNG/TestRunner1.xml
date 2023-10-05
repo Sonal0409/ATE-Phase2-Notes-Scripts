@@ -1,0 +1,22 @@
+<!-- 
+A testNG XMl file will allow you to prepare your test execution process when you have many selenium classes
+
+every xml file start with a tag called <suite></suite>
+We prefer having only 1 <suite></suite> tag
+verbose = how detailed should be log of output on Console when a test case is executed
+verbose = selenium test case execution log seen on console output
+Inside suite we have to write the tests to be executed
+Inside the <test> tag we will write classes of our packages that we have to run
+<classes> includes <class> tag
+<class></class> includes the naem of package and class to be executed
+ -->
+ 
+<suite name="test1" verbose="1">
+<test name="TestCycle1">
+<classes>
+<class name="com.app.TestNGScripts.TestAnnotation"></class>
+<class name="com.app.TestNGScripts.BeforeAftermethodAnnoatation"></class>
+<class name="com.app.TestNGScripts.BeforeAfterClassAnnoation"></class>
+</classes>
+</test>
+</suite>
