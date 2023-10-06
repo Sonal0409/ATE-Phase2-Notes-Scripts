@@ -1,74 +1,61 @@
 package com.app.TestNG.DataDrivenTesting;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class WikiCreateAccount {
+public class XLS_DataProvider {
 	
-	WebDriver driver;
+	static Workbook book;
+	static Sheet sheet;
+   
+	public static String testdata_sheet_path = "C:\\Users\\sonal\\Desktop\\mytestdata\\testdata1.xlsx";
 	
-	@BeforeClass
-	public void startbrowser()
-	{
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&returnto=Wikipedia%3ASign+up");
-	}
-
-	
-	@Test(dataProvider = "testdata" )
-	public void CreateAccount(String username, String password, String retype, String email) throws InterruptedException
-	{
-
-		driver.findElement(By.id("wpName2")).clear();
-		driver.findElement(By.id("wpName2")).sendKeys(username);
-		driver.findElement(By.id("wpPassword2")).clear();
-		driver.findElement(By.id("wpPassword2")).sendKeys(password);
-		driver.findElement(By.id("wpRetype")).clear();
-		driver.findElement(By.id("wpRetype")).sendKeys(retype);
-		driver.findElement(By.id("wpEmail")).clear();
-		driver.findElement(By.id("wpEmail")).sendKeys(email);
-		
-		Thread.sleep(2000);
-	}
-	
-	
-	// in testNG we can create a DATA provider method that will fetch data from excel sheet
-	// and suppy the data to your @Test method
-	// this method datatype is goign to be an object
-	// the row and column cell value
-	
-	@DataProvider(name="testdata")
-	public Object[][] datasupplier() throws EncryptedDocumentException, IOException
+	public static Object[][] getTestData(String sheetName ) throws EncryptedDocumentException, IOException
 	{
 		
-		Object input[][] = XLS_DataProvider.getTestData("Sheet1");
-		return input;
+		FileInputStream file = null;
+		file =	new FileInputStream(testdata_sheet_path);
+		
+		book = WorkbookFactory.create(file);
+		
+		sheet = book.getSheet(sheetName);
+		
+		//create an array which will store number of rows and cols
+		// dataType[][] arrayname = new datatype[lengthrow][lengthcol]
+		
+		Object[][] inputdata = new Object[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
+		
+		for(int i=0;i<sheet.getLastRowNum();i++)
+		{
+			for(int j=0;j<sheet.getRow(0).getLastCellNum();j++)
+			{
+				inputdata[i][j] = sheet.getRow(i+1).getCell(j).toString();
+			}
+		}
+		
+		return inputdata;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
