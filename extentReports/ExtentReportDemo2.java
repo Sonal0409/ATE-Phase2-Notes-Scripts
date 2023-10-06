@@ -39,7 +39,7 @@ public class ExtentReportDemo2 {
 		test4.skip("This test has skipped");
 		
 		ex.flush(); 
-		Desktop.getDesktop().browse(new File("report1.html").toURI());
+		Desktop.getDesktop().browse(new File("report2.html").toURI());
 		
 	}
 	
