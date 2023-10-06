@@ -1,0 +1,38 @@
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!-- thread count = how many parallel sessions to run at a time -->
+
+<suite name="testsuite" verbose="1" parallel="methods" thread-count="2">
+
+<test name="TestCycle1">
+<classes>
+<class name="com.app.TestNGScripts.Paralleltest">
+  <methods>
+    <include name="wikiPage"></include> 
+    <include name="wikiPage2"></include>
+    <include name="ninjaPage"></include>
+    <include name="ninjaPage2"></include>
+  </methods>
+</class>
+</classes>
+</test>
+
+</suite>
+
+
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!-- thread count = how many parallel sessions to run at a time -->
+
+<suite name="testsuite" verbose="1" parallel="classes" thread-count="2">
+
+<test name="TestCycle1">
+<classes>
+<class name="com.app.TestNGScripts.Paralleltest"></class>
+  <class name="com.app.TestNGScripts.Paralleltest1"></class>
+  <class name="com.app.TestNGScripts.Paralleltest2"></class>
+  <class name="com.app.TestNGScripts.Paralleltest3"></class>
+</classes>
+</test>
+
+</suite>
