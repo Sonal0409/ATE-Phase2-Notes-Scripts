@@ -1,0 +1,5 @@
+[server]
+port = 4449
+
+[sessionqueue]
+session-request-timeout = 500
