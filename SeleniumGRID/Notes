@@ -1,0 +1,97 @@
+Download Standalone server from:
+
+https://github.com/seleniumHQ/selenium/releases
+
+
+create a folder, place the standalone file jar in it
+
+open command prompt
+
+Enter thsi query
+
+java -jar selenium-server-4.13.0.jar standalone
+
+Code:
+package seleniumScripts;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class GridDemo {
+
+	static WebDriver driver;
+	
+	public static void main(String[] args) throws MalformedURLException {
+		// TODO Auto-generated method stub
+		
+		ChromeOptions cap = new ChromeOptions();
+	
+		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),cap);
+		
+		driver.get("https://www.selenium.dev/downloads/");
+		
+	}
+
+}
+
+
+
+
+Set up GRID as a Node and Hub
+===================
+
+Open another cmd prompt in the same directory as that of grid demo, execute below command
+
+java -jar selenium-server-4.13.0.jar hub
+
+Open another cmd prompt in the same directory as that of grid demo
+
+java -jar selenium-server-4.13.0.jar node
+
+OR
+
+java -jar selenium-server-4.13.0.jar node --port 7777
+
+
+Execute the script. it will work
+
+
+TOML config:
+=========================
+
+Create the hubconfig.toml file
+
+Add below data:
+
+[server]
+port = 4449
+
+[sessionqueue]
+session-request-timeout = 500
+
+Save the file as a .toml file
+
+Opn command prompt ,go to the directory where grid server jar file is:
+
+java -jar selenium-server-4.13.0.jar hub --config C:\mygriddemo\hubconfig.toml
+
+
+Create a nodeconfig.toml file:
+
+[node]
+drivers = ["chrome", "firefox"]
+max-sessions = 3
+
+Opn command prompt ,go to the directory where grid server jar file is:
+
+java -jar selenium-server-4.13.0.jar node --config C:\mygriddemo\node.toml
+
+
+
