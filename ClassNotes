@@ -1,0 +1,236 @@
+
+Page Object Model: Organizing your test cases
+
+before creating TestNG selenium scripts and origanizing them in POM framework. It is important that you decide what has to be tested on the website
+
+You should be clear on which pages have to be tested and what has to be tested
+
+You need to write yoru test cases before your start writing scripts and automation testing
+
+Pages to be Tested:
+===============================
+
+HomePage
+
+HomePage -> RegisterPage
+
+HomePage -> Login Page
+
+HomePage -> LoginPage--> Forget password Page
+
+HomePage -> Search Page
+
+=======================================
+
+Once you have decided the pages to be tested, we have to create a Base class:
+===========================================================================
+> Base class indicates the driver session and Application details
+> This base class will be called in every test class
+
+The concept of Bases class is very Simple.
+
+It is the Base of your entire framwork
+
+In the base class you will add methods, variables that can be used in all classes and packages of your Project
+
+Generally we add:
+
+ > Driver session details
+ > WebDriver variable
+ > property file method
+ > extent report details
+
+Any detaislw hich has be to executed at suite level/Test level, we can add in the Base class
+
+
+After Base class is decided, you will start with your Page classes
+===============================================================
+
+take the first page --> HomePage
+
+Decide the elements that have to be tested
+
+Write the locators for the elements
+
+MyAcount
+Register
+Login
+Desktops
+ID
+
+
+When we have to locate an elemenet in selenium we will write:
+
+WebElement    element  =driver.findElement(By.xpath("value");
+elelment.click();
+WebElement    element2 =driver.findElement(By.xpath("value");
+element2.sendkyes();
+WebElement    element3 =driver.findElement(By.xpath("value");
+WebElement    element4 =driver.findElement(By.xpath("value");
+
+These are group of elemenets of a webpage
+
+POM framwork gives you a class called PageFactory
+
+This class allows us to create a group of elements using an annotation @FindBy --> testNG annotation
+
+This is just another way of locating an element using selenium.
+
+What POM framwork says create a => PageFactory in your page classes ==> create a group of elements 
+
+To do this use @FindBy annotation
+
+The syntax is:
+
+@FindBy(locatorname = "value")
+WebElement  element1
+@FindBy(locatorname = "value")
+WebElement  element2
+@FindBy(locatorname = "value")
+WebElement  element3
+@FindBy(locatorname = "value")
+WebElement  element4
+
+
+Once you have the gorup of elements, you will initiate the elements using PageFactory class (pass the driver object to them)
+
+In the page class after the PageFactory is ready, we create Action methods
+
+When acion we ahve to perform on the element will be written in Action methods of Page classes
+
+
+
+Once your page class is ready --> create a corresponding Test class
+==================================
+
+In test class create object of Page class and call the action methods
+A test class will extend the test base class for driver object and browser initiation
+
+
+======================================
+
+Rule 1: Every page to be tested shoudl have a Page class
+
+Rule2: All the page class shouls be in a same package
+
+Rule 3: Every page class will ahve a corresponding test class
+
+note: Test class will actually execute the action methods created in Page classes
+
+Rule4: The driver object will be created in a base package, Testbase class
+
+All the class that needs driver object will extends the Testbase class
+
+
+
+Listners: TestNG
+
+used to listen any event that occurs while exeucte your testng clases
+
+Listner is not a class in TESTNG -> it is an Interface
+
+If we have to record what testNG is performing we will su listeners
+
+Iannotationtransformer
+Iannotationtransformer2
+IHookable
+IInvokeMethodListner
+IMethodInterceptor
+IReporter
+IsuiteListner
+ITestListner
+
+
+Listeners are used to log events in the Test console
+
+=================================================
+
+MAVEN : 
+=========================
+> It is a powerful tool which helps in building, managing and documenting your project
+
+> Maven by heart is a plugin based tool
+
+> whenever a maven plugin or command is executed, its output will be stored in folder called target
+
+> It has 2 types of plugins:
+
+Core Build plugins:
+=============================================================================================================
+Task  					Plugin					GOAL/Commands 	     output
+==============================================================================================================
+Compile the code  			Compiler				mvn compile		class files
+
+execute some Testcases		       Surefire				        mvn test		test passed/failed status
+
+Package the code			package					mvn package            .war file
+
+Clean the previous build	        clean					 mvn clean		clean up from target folder
+filesfrom target folder
+
+Deploy artifact on 			deploy					mvn deploy
+artifactory
+
+install all dependencies	        install					mvn install
+
+
+In maven multiple goals can be executed together
+
+# mvn clean install package
+
+
+
+Reporting plugins:
+==============================
+Will always generate reports, and in maven the reports are mostly generated in the format : xml,html,txt
+
+Task  						Plugin			GOAL/Commands 	                        output
+
+Code Review				pmd				mvn pmd:pmd		               pmd.xml report	
+
+test reports				surefire			mvn test		              surefire reports - xml,txt
+
+Code coverage				JACOCO,sonarqube		mvn sonar:sonar
+
+
+
+Structure MAVEN project
+
+src/main/java   ==> source code will be present
+src/test/java   ==> test cases will be present
+
+pom.xml   ==> heart of maven project
+
+ 1. dependencies   ==> tools downloded by developer to write code
+
+ 2. plugin information
+We will create a build tag which will hold the plugin names and version using which you can 
+> build
+> test
+> compile
+
+ 3. Repositories ( local, central & remote)
+URLs or location from where we have to download the plugin or dependency softwares
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
