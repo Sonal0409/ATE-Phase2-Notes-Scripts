@@ -31,5 +31,35 @@ go to terminal and type the below command:
 
 cat /var/lib/jenkins/secrets/initialAdminPassword
 
-copy the passowrd displayed ont he termianl
+copy the passowrd displayed ont he termianl.
+
+Copy the password and paste in the browser (jenkins)
+
+Click on continue
+
+Click on Jenkins suggested plugin tab(on left side)
+
+On the next page
+
+Username: admin
+Password : admin
+Retype password: admin
+Email: admin@gmail.com
+
+Click on continue
+
+Click on finish
+
+You will be on the jenkins dashboard
+============================================
+
+Jenkins + maven integration:
+
+Jenkins--> Manage Jenkins-->Global Tool configuration
+
+Under GIT==> leave it same 
+
+Under maven ==> lets install it automatically
+Type mymaven and check the install automatically box.
+Save the changes
 
