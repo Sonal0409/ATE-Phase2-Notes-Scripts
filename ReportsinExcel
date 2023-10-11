@@ -1,0 +1,23 @@
+public class Baseclass {
+	
+	public WebDriver driver;
+	
+	@BeforeMethod
+	public void baseclass1()
+	{
+		System.setProperty("webdriver.gecko.driver",  "/home/ubuntu/Downloads/gechodriver");
+	       driver = new geckodriver();
+	       driver.get("https://mvnrepository.com/");	
+	}
+	
+	@AfterMethod
+	public void quitDriver() {
+		driver.close();
+	}
+	
+	@AfterSuite
+	public void generateReport() throws Exception {
+		Xl.generateReport("Report_Excel.xlsx");
+	}
+
+}
