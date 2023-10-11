@@ -1,1 +1,18 @@
+Jenkins Installation Steps:
+
+
+1. we will create a Virtual Machine of OS linux
+
+  > A service called is EC2 on AWS
+
+2. We will connect to the VM from our laptop -> OS
+
+  > via browser
+  > via SSH using your laptop
+ 
+3. Install git and java 11 on the VM by executing below commands
+
+# sudo su -
+# yum install git -y
+# sudo amazon-linux-extras install java-openjdk11 -y
 
