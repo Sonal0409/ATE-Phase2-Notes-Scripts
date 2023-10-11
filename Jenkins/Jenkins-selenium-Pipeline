@@ -1,0 +1,25 @@
+pipeline{
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    agent {label 'win_slave'}
+    
+    stages{
+        stage('clone the repo')
+        {
+            steps{
+                git 'https://github.com/Sonal0409/ATE-Selenium-Jenkins.git'
+            }
+        }
+        
+         stage('Seleniumtest')
+        {
+            steps{
+                sh 'mvn test'
+            }
+        }
+    }
+    
+}
