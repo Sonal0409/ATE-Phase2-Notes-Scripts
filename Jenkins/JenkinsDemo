@@ -55,11 +55,12 @@ You will be on the jenkins dashboard
 
 Jenkins + maven integration:
 
-Jenkins--> Manage Jenkins-->Global Tool configuration
+Jenkins--> Manage Jenkins-->Tools
 
 Under GIT==> leave it same 
 
 Under maven ==> lets install it automatically
-Type mymaven and check the install automatically box.
+
+Type name = mymaven and check the install automatically box.
 Save the changes
 
