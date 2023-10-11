@@ -1,0 +1,36 @@
+pipeline{
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    agent any  // node where we have to run pipeline
+    stages{
+        stage('Clone the repo')
+        {
+            steps{
+            git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
+            }
+        }
+        
+        stage('CompileCode'){
+            steps{
+                sh 'mvn compile'
+            }
+        }
+        
+        stage('TestCode'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+        
+        stage('PackgeCode'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        
+        
+    }
+}
