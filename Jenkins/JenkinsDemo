@@ -23,3 +23,13 @@ Jenkins Installation Steps:
   yum install jenkins -y
   systemctl start jenkins
 
+5. Connect to jenkisn Dashboard:
+
+go to your browser and type publicIP:8080
+
+go to terminal and type the below command:
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+copy the passowrd displayed ont he termianl
+
