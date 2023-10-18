@@ -1,0 +1,120 @@
+# This is used to write comments
+# this is like your test plan
+# This is my first feature file
+Feature: Testing rediff myPage
+
+  # In the scenario if there are stpes that are common to be executed in the begining
+  # as a pre-requisite then we use the keyword Background
+  # The below statements demonstrates the use of backgroud keyword
+  # these statements will be executed before every scenario in the current feature file **
+  
+  Background: 
+    Given I open the browser and enter URL
+    Then I capture the title of the Page
+    When I enter username and password
+    Then I click on login button
+     
+    
+  # we are using Gherkin keywords
+  # each step should have a matching Code
+  # for every stpes we have to write code in step definition file
+
+  Scenario: User has to test if login on rediff is successful or not
+    And I should see an Error message
+    Then I click on Click Here link
+    And I close the browser
+
+  Scenario: 
+    Then I click on Create a Rediffmail account
+    Then I capture the title of the Page
+    And I close the browser
+
+
+
+
+
+
+
+package steps;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class TestLoginFeature {
+	
+	
+// A step definition file is a java file
+// In the steps definition file we implement 
+	//the steps written for a scenario in featurefile
+// Every steps is a test method
+// Every Gherkin keyword used in featurefile is an annotation in this file
+// we never execute this file
+// the steps are implemented in the following way:
+	
+	 WebDriver driver;
+	
+	
+	@Given("I open the browser and enter URL")
+	public void i_open_the_browser_and_enter_url() {
+		
+	  driver = new ChromeDriver();
+	   driver.manage().window().maximize();
+		driver.get("https://mypage.rediff.com/login/dologin");
+		
+	}
+
+	@Then("I capture the title of the Page")
+	public void i_capture_the_title_of_the_page() {
+		
+		System.out.println(driver.getTitle());    
+	}
+
+	@Then("I enter username and password")
+	public void i_enter_username_and_password() {
+	   
+	  driver.findElement(By.xpath("//input[@name='id']")).sendKeys("admin");
+	  driver.findElement(By.xpath("//input[@name='num']")).sendKeys("admin@123");
+	}
+
+	@When("I click on login button")
+	public void i_click_on_login_button() throws InterruptedException {
+	   
+		driver.findElement(By.xpath("//input[@value='Login']")).click();
+		Thread.sleep(1500);
+	}
+
+	@Then("I should see an Error message")
+	public void i_should_see_an_error_message() {
+
+	String text=driver.findElement(By.xpath("//div[@class='errmsg']/descendant::b")).getText();
+	System.out.println("Error message form the page" + text);
+	}
+
+	@Then("I click on Click Here link")
+	public void i_click_on_click_here_link() {
+	 driver.findElement(By.xpath("//div[@class='errmsg']/descendant::a")).click();
+	}
+
+	@Then("I close the browser")
+	public void i_close_the_browser() {
+	   
+		driver.quit();
+	}
+    
+	@Then("I click on Create a Rediffmail account")
+	public void create_a_rediff_account()
+	{
+		driver.findElement(By.xpath("//div[@id='toprightinfo']/child::a[2]")).click();
+	}
+	
+}
+
+
+
+
