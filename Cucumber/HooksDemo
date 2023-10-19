@@ -1,0 +1,119 @@
+
+@all
+Feature: Testing on NinaDemo application
+
+Background:
+Given I am on tutorialsNinja Homepage
+
+@regression
+Scenario:
+Then I enter Input for the search box
+And I click on search button
+And I close browser
+
+@regression
+Scenario:
+
+And I click on Add to Cart button
+And I close browser
+
+@db
+Scenario:
+
+And I click on Checkout button
+And I close browser
+
+
+================
+
+package steps;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+
+public class TestHooksDemo {
+	
+	
+	// Suppose you have a feature file which has some scenarios, and before executeing those scenarios if
+	// you want to run this setup() method then give @Before annotation
+	
+	@Before(order = 0,value="@regression")
+	public void setup()
+	{
+		System.out.println("Executing only regression scenarios");
+		System.out.println("The feature sceanrio has started");
+		System.out.println("The Author is Sonal Mittal");
+		
+	}
+	@Before(order = 1,value="@db")
+	public void Dbsetup()
+	{
+		System.out.println("Connect to DB");
+	}
+	
+	// Suppose you have a feature file which has some scenarios, and after executing those scenarios if
+		// you want to run this teardown() method then give @After annotation
+		
+	@After(order = 1,value="@db")
+	public void DbClose()
+	{
+		System.out.println("Close the DB connection");
+	}
+
+	@After(order = 0,value="@regression")
+	public void teardown()
+	{
+		
+		System.out.println("The feature sceanrio has completed");
+		
+	}
+}
+
+
+package steps;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class TestExamplesNinjaDemo {
+	
+	WebDriver driver;
+	
+	@Given("I am on tutorialsNinja Homepage")
+	public void i_am_on_tutorials_ninja_homepage() {
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://tutorialsninja.com/demo/index.php?route=common/home");   
+	}
+
+	@Then("I close browser")
+	public void i_close_browser() {
+	    driver.close();
+	}
+	
+	@Then("I enter Input for the search box")
+	public void i_enter_input_for_the_search_box() {
+	  driver.findElement(By.xpath("//input[@name='search']")).sendKeys("Mac");
+	}
+	@Then("I click on search button")
+	public void i_click_on_search_button() {
+		 driver.findElement(By.xpath("//button[@class='btn btn-default btn-lg']")).click();
+	}
+	
+	@Given("I click on Add to Cart button")
+	public void i_click_on_add_to_cart_button() {
+		 driver.findElement(By.linkText("Shopping Cart")).click();
+	}
+	@Given("I click on Checkout button")
+	public void i_click_on_checkout_button() {
+		driver.findElement(By.linkText("Checkout")).click();
+	}
+
+
+
+}
