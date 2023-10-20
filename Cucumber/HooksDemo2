@@ -1,0 +1,228 @@
+
+@all
+Feature: Test the Wiki page on chrome Browser
+
+@create @functional
+Scenario: Test Create account on Wiki Page
+Given User is on Main page 
+Then User Enters username
+And User enters Password
+
+@login @functional
+Scenario: Test Login link on Wiki Page
+Given User is on Main page 
+When User clicks on Login link
+Then User clicks on checkbox on login Page
+Then User clicks on Forgot your password? link
+
+
+============================
+
+package steps;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.BeforeStep;
+
+public class BaseHooks {
+	
+	//Global hooks
+	//Global hooks will run once before any scenario is run or after all scenario have been run.
+	
+	@BeforeAll
+	public static void featurestarts()
+	{
+		System.out.println("The feature has started execution");
+	}
+	
+	@AfterAll
+	public static void featureends()
+	{
+		System.out.println("The feature has completed execution");
+	}
+	
+	
+	
+	public static WebDriver driver;
+	
+	// before every scenario in feature file these methods will run
+	// when we have many @before annotations, then use order to arrange them in a sequence
+	
+	@Before(order=0,value="@login and @functional")   // this is cucumber hooks
+	public void ConditionalHooks()
+	{
+		System.out.println("Task 1: Open the Chrome Browser");
+		
+		
+	}
+	
+	@Before(order=0,value="@login or @functional")   // this is cucumber hooks
+	public void ConditionalHooks1()
+	{
+		System.out.println("Task 1: Open the Chrome Browser");
+		
+		
+	}
+	
+	@Before(order=0,value="not @login")   // this is cucumber hooks
+	public void ConditionalHooks2()
+	{
+		System.out.println("Task 1: Open the Chrome Browser");
+		
+		
+	}
+	
+	
+	
+	
+	@Before(order=0,value="@functional")   // this is cucumber hooks
+	public void OpenBrowser()
+	{
+		System.out.println("Task 1: Open the Chrome Browser");
+		driver = new ChromeDriver();
+		
+	}
+	// before every scenario in feature file these methods will run
+	
+	@Before(order=1,value="@functional") 
+	public void managebrowserwindow()
+	{
+		System.out.println("Task 2: Manage browser window");
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+	}
+	// before every scenario in feature file these methods will run
+	
+	@Before(order=2,value="@functional") 
+	public void openUrl()
+	{
+		System.out.println("Task 3: Enter URL");
+		driver.get("https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&returnto=Wikipedia%3ASign+up");
+		
+	}
+	
+	// before every steps of a scenario this hook will run
+	@BeforeStep
+	public void stepstart()
+	{
+		System.out.println("The steps has started execution");
+	}
+	
+	// after every steps of a scenario this hook will run
+		@AfterStep
+		public void stepend()
+		{
+			System.out.println("The steps has completed execution");
+		}
+		
+	
+	
+	
+	// these methods i want to run after every scenairo in my feature
+	
+	@After(order=2,value="@functional")
+	public void capturetitle()
+	{
+		System.out.println("Task 4: Capturetitle");
+		System.out.println(driver.getTitle());
+		
+	}
+	
+	@After(order=1,value="@functional")
+	public void closebrowser()
+	{
+		System.out.println("Task 5: browser is now closed");
+		driver.close();
+		
+	}
+	
+	@After(order=0,value="@functional")
+	public void Testcompletemessage()
+	{
+		System.out.println("Task 6: Test scenario is now completed");
+	
+		
+	}
+	
+	
+
+}
+
+==================================
+
+package steps;
+
+import org.openqa.selenium.By;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class HooksStepsDemo  {
+	
+	
+	@Given("User is on Main page")
+	public void user_is_on_main_page() {
+	   
+		System.out.println("Yes, user is on the main page");
+	}
+
+	@Then("User Enters username")
+	public void user_enters_username() {
+	   BaseHooks.driver.findElement(By.xpath("//input[@id='wpName2']")).sendKeys("admin");
+	}
+
+	@Then("User enters Password")
+	public void user_enters_password() {
+		BaseHooks.driver.findElement(By.xpath("//input[@id='wpPassword2']")).sendKeys("admin@123");
+	}
+
+	@When("User clicks on Login link")
+	public void user_clicks_on_login_link() {
+		BaseHooks.driver.findElement(By.xpath("(//span[text()='Log in'])[1]")).click();
+	}
+
+	@Then("User clicks on checkbox on login Page")
+	public void user_clicks_on_checkbox_on_login_page() {
+		BaseHooks.driver.findElement(By.xpath("//input[@name='wpRemember']")).click();
+	}
+
+	@Then("User clicks on Forgot your password? link")
+	public void user_clicks_on_forgot_your_password_link() {
+		BaseHooks.driver.findElement(By.xpath("//a[text()='Forgot your password?']")).click();
+	}
+
+}
+
+
+======================================
+
+package runner;
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+	features = "C:\\Users\\sonal\\Workspace2-git\\ATE-Lesson5-Cucumber\\src\\main\\java\\features\\wikipage.feature",
+	glue = {"steps"},
+	dryRun = false,
+	plugin = {"pretty",
+			  "html:target/TestreportToday.html"}, 
+	monochrome = true, // console output will be in more readable format
+	tags = "@login"
+		
+		)
+
+
+public class TestRunner1 {
+
+}
